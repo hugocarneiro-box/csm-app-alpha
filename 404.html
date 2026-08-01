@@ -1,36 +1,45 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 <head>
-  <!--
-    If you are serving your web app in a path other than the root, change the
-    href value below to reflect the base path you are serving from.
-
-    The path provided below has to start and end with a slash "/" in order for
-    it to work correctly.
-
-    For more details:
-    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
-
-    This is a placeholder for base href that will be replaced by the value of
-    the `--base-href` argument provided to `flutter build`.
-  -->
+  <!-- NÃO MEXA nesta linha: o `/csm-app-alpha/` é um marcador que o `flutter build web` troca
+       pelo valor de `--base-href`. O alpha é servido numa SUBPASTA (…/csm-app-alpha/), então um
+       caminho fixo aqui quebraria o carregamento do app inteiro no ar sem quebrar nada local. -->
   <base href="/csm-app-alpha/">
 
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="A new Flutter project.">
+  <!-- Esta frase é a que aparece na prévia do link quando alguém manda o endereço do app no
+       WhatsApp — que é exatamente como a equipe recebeu a versão de avaliação. -->
+  <meta name="description" content="App oficial do Campeonato San Marino de Kart: ranking, tempos e classificação.">
 
-  <!-- iOS meta tags & icons -->
+  <!-- Cor da barra do navegador no celular. É o MESMO #0A0A0B do fundo do app (SMPalette.escura.bg,
+       em lib/ui/sm_colors.dart): a moldura do navegador some dentro da tela em vez de emoldurá-la.
+       O vermelho da marca mora no ícone, que é onde ele identifica o app. -->
+  <meta name="theme-color" content="#0A0A0B">
+
+  <!-- iOS: título do atalho e ícone da tela de início -->
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="san_marino_app">
+  <!-- Nome CURTO de propósito: embaixo do ícone o sistema corta em ~12 caracteres, e
+       "Campeonato San Marino" viraria "Campeonato S…". "San Marino" é a mesma assinatura que o
+       app escreve no cabeçalho do Início. O nome por extenso está no <title> e no manifest. -->
+  <meta name="apple-mobile-web-app-title" content="San Marino">
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="favicon.png"/>
 
-  <title>san_marino_app</title>
+  <title>Campeonato San Marino</title>
   <link rel="manifest" href="manifest.json">
+
+  <!-- O app abre em tema ESCURO por padrão (ui/tema.dart) e o CanvasKit demora alguns segundos em
+       rede ruim. Sem esta regra a pessoa encara uma PÁGINA BRANCA até o primeiro quadro e só então
+       tudo escurece de um golpe. Pintar a página com o fundo do app faz a espera parecer o app
+       carregando, não uma página quebrada. Quem escolheu o tema claro vê um instante escuro no
+       começo — troca barata pelo contrário, que hoje acontece com todo mundo. -->
+  <style>
+    html, body { background-color: #0A0A0B; }
+  </style>
 
   <!-- Passkeys Web SDK (dependência transitiva do supabase_flutter; exigida só na web).
        Servido localmente para evitar bloqueio de MIME/nosniff de URL externa.
@@ -38,14 +47,6 @@
   <script src="bundle.js"></script>
 </head>
 <body>
-  <!--
-    You can customize the "flutter_bootstrap.js" script.
-    This is useful to provide a custom configuration to the Flutter loader
-    or to give the user feedback during the initialization process.
-
-    For more details:
-    * https://docs.flutter.dev/platform-integration/web/initialization
-  -->
   <script src="flutter_bootstrap.js" async></script>
 </body>
 </html>
